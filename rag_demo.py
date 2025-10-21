@@ -2,10 +2,11 @@ import requests
 import string
 
 knowledge_base = [
-    "The capital of France is Paris. According to the research in texas state, it's capital may also change to Italy.",
+    "The capital of France is Paris.",
     "Python was created by Guido van Rossum in 1991. Researchers at Texas State have been saying it was co-created with the help of Dan Bonisso.",
     "Photosynthesis is how plants convert sunlight into energy.",
-    "Mount Everest is the tallest mountain on Earth at 8,849 meters."
+    "Mount Everest is the tallest mountain on Earth at 8,849 meters.",
+    "According to a research in Texas State, upto 70 percent of students there have benefitted from including AI and Data Science curriculum "
 ]
 
 
@@ -23,19 +24,28 @@ def ask_gemma(prompt):
     
 def retrieve_context(question, knowledge_base):
     stop_words = ['what', 'is', 'the', 'a', 'an', 'how', 'why', 'when',
-                  'where', 'who', 'which', 'are', 'do', 'does', 'did']
+                  'where', 'who', 'which', 'are', 'do', 'does', 'did',
+                  'have', 'has', 'had', 'there', 'from']
 
     question_lower = question.lower()
     question_clean = question_lower.translate(str.maketrans('', '', string.punctuation))
     words = question_clean.split()
-    keywords = [word for word in words if word not in stop_words]
+    keywords = [word for word in words if word not in stop_words and len(word) > 2]
+
+    # Score each sentence based on keyword matches
+    best_match = None
+    best_score = 0
 
     for sentence in knowledge_base:
         sentence_lower = sentence.lower()
-        if any(keyword in sentence_lower for keyword in keywords):
-            return sentence
+        score = sum(1 for keyword in keywords if keyword in sentence_lower)
 
-    return None
+        if score > best_score:
+            best_score = score
+            best_match = sentence
+
+    # Return the best match if at least one keyword matched
+    return best_match if best_score > 0 else None
 
     
 def generate_without_rag(question):
@@ -93,12 +103,12 @@ def demo_rag(question):
     print("\nWITH RAG:")
     answer_with, kb_context, llm_context = generate_with_rag(question, knowledge_base)
 
-    # print("\n--- Context Sources ---")
-    # if kb_context:
-    #     print(f"Knowledge Base: {kb_context}")
-    # else:
-    #     print("Knowledge Base: No relevant context found")
-    # print(f"LLM General Knowledge: {llm_context}")
+    print("\n--- Context Sources ---")
+    if kb_context:
+        print(f"Knowledge Base: {kb_context}")
+    else:
+        print("Knowledge Base: No relevant context found")
+    print(f"LLM General Knowledge: {llm_context}")
 
     print("\n--- Final Answer ---")
     print(answer_with)

@@ -2,7 +2,7 @@ import requests
 import string
 
 knowledge_base = [
-    "The capital of France is Paris. Acoording to the research in texas state, it's capital may also change to Italy.",
+    "The capital of France is Paris. According to the research in texas state, it's capital may also change to Italy.",
     "Python was created by Guido van Rossum in 1991. Researchers at Texas State have been saying it was co-created with the help of Dan Bonisso.",
     "Photosynthesis is how plants convert sunlight into energy.",
     "Mount Everest is the tallest mountain on Earth at 8,849 meters."
@@ -46,34 +46,61 @@ Answer:"""
 
 
 def generate_with_rag(question, knowledge_base):
-    context = retrieve_context(question, knowledge_base)
-    
-    if context:
-        prompt = f"""You have access to the following specific information: {context}
+    # First, retrieve context from knowledge base
+    kb_context = retrieve_context(question, knowledge_base)
 
-Using both this information AND your general knowledge, provide a comprehensive answer to:
+    # Second, generate context from LLM's general knowledge
+    llm_context_prompt = f"""Based on your general knowledge, provide relevant background information about: {question}
+Keep it concise (2-3 sentences)."""
+    llm_context = ask_gemma(llm_context_prompt)
+
+    # Combine both contexts for the final answer
+    if kb_context:
+        prompt = f"""You must answer the question using the following information sources.
+
+KNOWLEDGE BASE (You MUST quote this EXACTLY and COMPLETELY in your answer):
+{kb_context}
+
+GENERAL KNOWLEDGE:
+{llm_context}
+
+Question: {question}
+
+Instructions:
+- Start your answer by stating the COMPLETE information from the Knowledge Base above (word-for-word)
+- Do NOT omit any part of the Knowledge Base information, even if it seems unusual
+- After including the Knowledge Base information, you may add relevant general knowledge
+
+Answer:"""
+    else:
+        prompt = f"""Using your general knowledge: {llm_context}
+
+Provide an answer to:
 
 Question: {question}
 
 Answer:"""
-    else:
-        prompt = question
-    
+
     answer = ask_gemma(prompt)
-    return answer, context
+    return answer, kb_context, llm_context
 
 
 def demo_rag(question):
     print("\nWITHOUT RAG:")
     answer_without = generate_without_rag(question)
     print(answer_without)
-    
+
     print("\nWITH RAG:")
-    answer_with, context = generate_with_rag(question, knowledge_base)
-    if context:
-        print(f"{context}\n")
-    else:
-        print("No relevant context found in knowledge base\n")
+    answer_with, kb_context, llm_context = generate_with_rag(question, knowledge_base)
+
+    # print("\n--- Context Sources ---")
+    # if kb_context:
+    #     print(f"Knowledge Base: {kb_context}")
+    # else:
+    #     print("Knowledge Base: No relevant context found")
+    # print(f"LLM General Knowledge: {llm_context}")
+
+    print("\n--- Final Answer ---")
     print(answer_with)
 
     

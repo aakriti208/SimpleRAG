@@ -74,22 +74,28 @@ KNOWLEDGE BASE (You MUST quote this EXACTLY and COMPLETELY in your answer):
 GENERAL KNOWLEDGE:
 {llm_context}
 
+
+
 Question: {question}
 
-Instructions:
-- Start your answer by stating the COMPLETE information from the Knowledge Base above (word-for-word)
-- Do NOT omit any part of the Knowledge Base information, even if it seems unusual
-- After including the Knowledge Base information, you may add relevant general knowledge
+# Instructions:
+# - Start your answer by stating the COMPLETE information from the Knowledge Base above (word-for-word)
+# - Do NOT omit any part of the Knowledge Base information, even if it seems unusual
+# - After including the Knowledge Base information, you may add relevant general knowledge
 
-Answer:"""
+Provide a detailed answer that:
+1. Uses the verified information as the foundation
+2. Enhances it with relevant context from your knowledge
+3. Explains concepts clearly for educational purposes
+
+# Answer:"""
     else:
-        prompt = f"""Using your general knowledge: {llm_context}
-
-Provide an answer to:
+        prompt = f"""You are an educational AI tutor. Answer this question using your general knowledge and the knowledge base provided.
 
 Question: {question}
 
 Answer:"""
+
 
     answer = ask_gemma(prompt)
     return answer, kb_context, llm_context

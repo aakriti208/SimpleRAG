@@ -102,21 +102,19 @@ Answer:"""
 
 
 def demo_rag(question):
-    print("\nWITHOUT RAG:")
+    print("\nWITHOUT RAG:\n")
     answer_without = generate_without_rag(question)
     print(answer_without)
 
-    print("\nWITH RAG:")
+    print("\nWITH RAG:\n")
     answer_with, kb_context, llm_context = generate_with_rag(question, knowledge_base)
 
-    print("\n--- Context Sources ---")
     if kb_context:
         print(f"Knowledge Base: {kb_context}")
     else:
         print("Knowledge Base: No relevant context found")
     print(f"LLM General Knowledge: {llm_context}")
-
-    print("\n--- Final Answer ---")
+    print(f"\nFinal Answer\n")
     print(answer_with)
 
     

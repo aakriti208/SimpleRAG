@@ -1,5 +1,6 @@
 # Environment variables (IMPORTANT: Contains API tokens)
 .env
+.env.template
 
 # Python virtual environments
 venv/

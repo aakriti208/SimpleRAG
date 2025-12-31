@@ -1,0 +1,23 @@
+# Canvas API
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+
+# Embeddings
+sentence-transformers>=2.3.0
+torch>=2.6.0
+
+# Vector Database
+chromadb>=0.4.22
+
+# Environment
+python-dotenv>=1.0.0
+
+# Utilities
+numpy>=1.24.0
+tqdm>=4.65.0
+python-dateutil>=2.8.2
+lxml>=4.9.0
+
+# PDF and PowerPoint extraction
+pypdf>=3.0.0
+python-pptx>=0.6.21

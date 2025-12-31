@@ -98,33 +98,6 @@ python rag_demo.py
 - "What are the assignments in this course?"
 - "Tell me about the syllabus"
 
-## Testing the Pipeline
-
-### Test 1: Single Content Type
-
-```bash
-python scripts/ingest_data.py --course COURSE_ID --content-type page
-python scripts/verify_canvas_data.py
-```
-
-### Test 2: Full Ingestion
-
-```bash
-python scripts/ingest_data.py --course COURSE_ID --full
-```
-
-### Test 3: Retrieval
-
-```bash
-python test_retrieval_only.py
-```
-
-### Test 4: End-to-End RAG
-
-```bash
-python rag_demo.py
-# Ask: "What is this course about?"
-```
 
 ## Architecture
 

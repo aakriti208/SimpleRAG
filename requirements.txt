@@ -21,3 +21,8 @@ lxml>=4.9.0
 # PDF and PowerPoint extraction
 pypdf>=3.0.0
 python-pptx>=0.6.21
+
+# Web Interface
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0

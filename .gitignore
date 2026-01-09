@@ -1,6 +1,5 @@
 # Environment variables (IMPORTANT: Contains API tokens)
 .env
-# Note: .env.template is NOT ignored - it's safe to commit as it has no secrets
 
 # Python virtual environments
 venv/

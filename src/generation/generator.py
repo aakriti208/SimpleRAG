@@ -36,9 +36,9 @@ Answer:"""
 
         Returns: (answer, formatted_kb_context, llm_context)
         """
-        # Get LLM general knowledge
-        llm_context_prompt = f"""Based on your general knowledge, provide relevant background information about: {question}
-Keep it concise (2-3 sentences)."""
+        # Get LLM general knowledge to supplement Canvas materials
+        llm_context_prompt = f"""As an educational AI, provide brief background context about: {question}
+Keep it concise (2-3 sentences) and focus on foundational concepts that would help a student understand this topic."""
         llm_context = self.ask_llm(llm_context_prompt)
 
         # Format retrieved contexts
@@ -48,27 +48,24 @@ Keep it concise (2-3 sentences)."""
                 for i, ctx in enumerate(retrieved_contexts)
             ])
 
-            prompt = f"""You must answer the question using the following information sources.
+            prompt = f"""You are an educational AI assistant. A student has asked a question, and I have retrieved relevant information from Canvas LMS course materials to help answer it.
 
-KNOWLEDGE BASE (You MUST quote this EXACTLY and COMPLETELY in your answer):
+CANVAS COURSE MATERIALS (Retrieved from Canvas API):
 {kb_context}
 
-GENERAL KNOWLEDGE:
+YOUR GENERAL KNOWLEDGE:
 {llm_context}
 
-Question: {question}
+STUDENT'S QUESTION: {question}
 
-# Instructions:
-# - Start your answer by stating the COMPLETE information from the Knowledge Base above (word-for-word)
-# - Do NOT omit any part of the Knowledge Base information, even if it seems unusual
-# - After including the Knowledge Base information, you may add relevant general knowledge
+INSTRUCTIONS:
+- First, carefully reference the Canvas course materials above as your primary source
+- Use the retrieved Canvas content to provide accurate, course-specific information
+- Then supplement with your general knowledge to provide additional context and explanation
+- Make sure your answer is educational, clear, and directly addresses the student's question
+- If the Canvas materials don't fully answer the question, acknowledge that and provide what information you can
 
-Provide a detailed answer that:
-1. Uses the verified information as the foundation
-2. Enhances it with relevant context from your knowledge
-3. Explains concepts clearly for educational purposes
-
-# Answer:"""
+Please provide a comprehensive answer that combines the Canvas course information with your knowledge:"""
         else:
             kb_context = "No relevant context found in knowledge base"
             prompt = f"""You are an educational AI tutor. Answer this question using your general knowledge.

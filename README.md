@@ -59,8 +59,6 @@ ollama pull gemma:2b
 
 ### Ingest Canvas Content
 
-**Start with a single content type (recommended for testing):**
-
 ```bash
 python scripts/ingest_data.py --course YOUR_COURSE_ID --content-type page
 ```
@@ -97,7 +95,6 @@ python rag_demo.py
 - "Explain text preprocessing"
 - "What are the assignments in this course?"
 - "Tell me about the syllabus"
-
 
 ## Architecture
 

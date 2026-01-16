@@ -14,14 +14,14 @@ __pycache__/
 *.so
 .Python
 
-# ChromaDB data (large vector database - don't commit)
+# ChromaDB data 
 data/chroma_db/
 
 # Metadata and logs
 data/metadata/
 data/logs/
 
-# Raw and processed data (can be large)
+# Raw and processed data 
 data/raw/
 data/processed/
 

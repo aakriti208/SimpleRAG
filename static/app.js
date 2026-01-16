@@ -6,7 +6,8 @@ const submitBtn = document.getElementById('submit-btn');
 const loading = document.getElementById('loading');
 const error = document.getElementById('error');
 const results = document.getElementById('results');
-const answerText = document.getElementById('answer-text');
+const answerWithRag = document.getElementById('answer-with-rag');
+const answerWithoutRag = document.getElementById('answer-without-rag');
 const contextsContainer = document.getElementById('contexts-container');
 const kbContext = document.getElementById('kb-context');
 const llmContext = document.getElementById('llm-context');
@@ -72,8 +73,9 @@ function hideResults() {
 }
 
 function displayResults(data) {
-    // Display answer
-    answerText.textContent = data.answer;
+    // Display both answers for comparison
+    answerWithRag.textContent = data.answer_with_rag;
+    answerWithoutRag.textContent = data.answer_without_rag;
 
     // Display contexts
     contextsContainer.innerHTML = '';

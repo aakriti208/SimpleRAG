@@ -36,19 +36,28 @@
 
         <div id="loading" class="loading hidden">
           <div class="spinner"></div>
-          <p>Generating answer...</p>
+          <p>Generating answers...</p>
         </div>
 
         <div id="error" class="error hidden"></div>
 
         <div id="results" class="results hidden">
-          <section class="answer-section">
-            <h2>Answer</h2>
-            <div id="answer-text" class="answer-text"></div>
+          <section class="comparison-section">
+            <h2>Answer Comparison</h2>
+            <div class="comparison-container">
+              <div class="answer-panel with-rag">
+                <h3>With Canvas Materials (RAG)</h3>
+                <div id="answer-with-rag" class="answer-text"></div>
+              </div>
+              <div class="answer-panel without-rag">
+                <h3>Without Canvas Materials (Ollama Only)</h3>
+                <div id="answer-without-rag" class="answer-text"></div>
+              </div>
+            </div>
           </section>
 
           <section class="contexts-section">
-            <h2>Retrieved Contexts</h2>
+            <h2>Retrieved Canvas Materials</h2>
             <div id="contexts-container"></div>
           </section>
 

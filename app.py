@@ -55,7 +55,8 @@ class ContextResult(BaseModel):
 
 
 class RAGResponse(BaseModel):
-    answer: str
+    answer_with_rag: str
+    answer_without_rag: str
     contexts: List[ContextResult]
     kb_context: str
     llm_context: str
@@ -153,24 +154,30 @@ async def query_rag(request: QuestionRequest):
 
         logger.info(f"Retrieved {len(retrieved_contexts)} contexts")
 
+        # Generate answer WITHOUT RAG (using only Ollama's knowledge)
+        logger.info("Generating answer without RAG...")
+        answer_without_rag = generator.generate_without_rag(request.question)
+
         # Handle no contexts found
         if not retrieved_contexts:
             logger.warning("No relevant contexts found")
             return RAGResponse(
-                answer="I couldn't find relevant information in the knowledge base to answer your question.",
+                answer_with_rag="I couldn't find relevant information in the Canvas course materials to answer your question.",
+                answer_without_rag=answer_without_rag,
                 contexts=[],
                 kb_context="No relevant context found",
                 llm_context="",
                 error="No relevant contexts found"
             )
 
-        # Generate answer with RAG
-        answer, kb_context, llm_context = generator.generate_with_rag(
+        # Generate answer WITH RAG (using Canvas materials + Ollama)
+        logger.info("Generating answer with RAG...")
+        answer_with_rag, kb_context, llm_context = generator.generate_with_rag(
             request.question,
             retrieved_contexts
         )
 
-        logger.info("Answer generated successfully")
+        logger.info("Both answers generated successfully")
 
         # Format contexts for response
         formatted_contexts = [
@@ -184,7 +191,8 @@ async def query_rag(request: QuestionRequest):
         ]
 
         return RAGResponse(
-            answer=answer,
+            answer_with_rag=answer_with_rag,
+            answer_without_rag=answer_without_rag,
             contexts=formatted_contexts,
             kb_context=kb_context,
             llm_context=llm_context

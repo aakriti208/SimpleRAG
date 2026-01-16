@@ -26,7 +26,7 @@ body {
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 2rem 1rem;
 }
@@ -158,7 +158,8 @@ button:disabled {
 }
 
 .answer-section,
-.contexts-section {
+.contexts-section,
+.comparison-section {
     background: var(--card-bg);
     padding: 2rem;
     border-radius: 8px;
@@ -167,16 +168,61 @@ button:disabled {
 }
 
 .answer-section h2,
-.contexts-section h2 {
+.contexts-section h2,
+.comparison-section h2 {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     color: var(--primary-color);
 }
 
-.answer-text {
+.comparison-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.answer-panel {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: var(--bg-color);
+}
+
+.answer-panel.with-rag {
+    border-color: var(--success-color);
+}
+
+.answer-panel.without-rag {
+    border-color: var(--text-secondary);
+}
+
+.answer-panel h3 {
     font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.answer-panel.with-rag h3 {
+    color: var(--success-color);
+    border-bottom-color: var(--success-color);
+}
+
+.answer-panel.without-rag h3 {
+    color: var(--text-secondary);
+}
+
+.answer-text {
+    font-size: 1rem;
     line-height: 1.8;
     white-space: pre-wrap;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .comparison-container {
+        grid-template-columns: 1fr;
+    }
 }
 
 .context-card {

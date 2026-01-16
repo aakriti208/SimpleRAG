@@ -80,6 +80,7 @@ class CanvasIngestionPipeline:
         Args:
             incremental: If True, only process new/updated content
         """
+        
         logger.info("Initializing Canvas ingestion pipeline...")
 
         self.client = CanvasClient(CANVAS_API_TOKEN, CANVAS_BASE_URL)

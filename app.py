@@ -4,10 +4,6 @@ SimpleRAG Web Interface
 
 FastAPI application that provides a web interface for the SimpleRAG system.
 
-Usage:
-    python app.py
-
-Then navigate to: http://localhost:8000
 """
 
 from fastapi import FastAPI, HTTPException

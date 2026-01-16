@@ -1,78 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SimpleRAG - Question Answering</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
     <div class="container">
-        <header>
-            <h1>SimpleRAG</h1>
-            <p class="subtitle">Retrieval-Augmented Generation System</p>
-        </header>
+      <header>
+        <h1>AI Tutor</h1>
+      </header>
 
-        <main>
-            <div class="query-section">
-                <form id="question-form">
-                    <div class="input-group">
-                        <textarea
-                            id="question-input"
-                            name="question"
-                            placeholder="Ask a question about the knowledge base..."
-                            rows="3"
-                            required
-                        ></textarea>
-                    </div>
-                    <div class="controls">
-                        <label for="top-k">Results:
-                            <input type="number" id="top-k" value="3" min="1" max="10">
-                        </label>
-                        <button type="submit" id="submit-btn">Ask Question</button>
-                    </div>
-                </form>
+      <main>
+        <div class="query-section">
+          <form id="question-form">
+            <div class="input-group">
+              <textarea
+                id="question-input"
+                name="question"
+                placeholder="Ask a question..."
+                rows="3"
+                required
+              ></textarea>
             </div>
-
-            <div id="loading" class="loading hidden">
-                <div class="spinner"></div>
-                <p>Generating answer...</p>
+            <div class="controls">
+              <label for="top-k"
+                >Results:
+                <input type="number" id="top-k" value="3" min="1" max="10" />
+              </label>
+              <button type="submit" id="submit-btn">Ask Question</button>
             </div>
+          </form>
+        </div>
 
-            <div id="error" class="error hidden"></div>
+        <div id="loading" class="loading hidden">
+          <div class="spinner"></div>
+          <p>Generating answer...</p>
+        </div>
 
-            <div id="results" class="results hidden">
-                <section class="answer-section">
-                    <h2>Answer</h2>
-                    <div id="answer-text" class="answer-text"></div>
-                </section>
+        <div id="error" class="error hidden"></div>
 
-                <section class="contexts-section">
-                    <h2>Retrieved Contexts</h2>
-                    <div id="contexts-container"></div>
-                </section>
+        <div id="results" class="results hidden">
+          <section class="answer-section">
+            <h2>Answer</h2>
+            <div id="answer-text" class="answer-text"></div>
+          </section>
 
-                <details class="additional-info">
-                    <summary>Additional Information</summary>
-                    <div class="info-content">
-                        <div class="info-section">
-                            <h3>Knowledge Base Context</h3>
-                            <pre id="kb-context"></pre>
-                        </div>
-                        <div class="info-section">
-                            <h3>LLM General Knowledge</h3>
-                            <pre id="llm-context"></pre>
-                        </div>
-                    </div>
-                </details>
+          <section class="contexts-section">
+            <h2>Retrieved Contexts</h2>
+            <div id="contexts-container"></div>
+          </section>
+
+          <details class="additional-info">
+            <summary>Additional Information</summary>
+            <div class="info-content">
+              <div class="info-section">
+                <h3>Knowledge Base Context</h3>
+                <pre id="kb-context"></pre>
+              </div>
+              <div class="info-section">
+                <h3>LLM General Knowledge</h3>
+                <pre id="llm-context"></pre>
+              </div>
             </div>
-        </main>
-
-        <footer>
-            <p>Powered by ChromaDB, Sentence Transformers, and Ollama</p>
-        </footer>
+          </details>
+        </div>
+      </main>
     </div>
 
     <script src="/static/app.js"></script>
-</body>
+  </body>
 </html>

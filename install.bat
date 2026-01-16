@@ -113,6 +113,6 @@ echo 4. Start the web interface:
 echo    python app.py
 echo    Then visit: http://localhost:8000
 echo.
-echo For help, see README.md or contact support
+echo For help, see README.md or contact STEM CLEAR support
 echo.
 pause

@@ -59,13 +59,17 @@ YOUR GENERAL KNOWLEDGE:
 STUDENT'S QUESTION: {question}
 
 INSTRUCTIONS:
-- First, carefully reference the Canvas course materials above as your primary source
-- Use the retrieved Canvas content to provide accurate, course-specific information
-- Then supplement with your general knowledge to provide additional context and explanation
-- Make sure your answer is educational, clear, and directly addresses the student's question
-- If the Canvas materials don't fully answer the question, acknowledge that and provide what information you can
+- The Canvas materials contain tables with | (pipe) separators like this format:
+  Week # | Day, Date | Topic | Reading | Notes
+  7 | Thu, Mar 12 | Midterm | |
+  This means: Week 7, on Thursday March 12, the topic is "Midterm"
+- For date/schedule questions: Find the line containing the exact date, then read ALL columns in that row
+- When you find the date row, report what appears in the "Topic" column (3rd position after the date)
+- DO NOT hallucinate - only report what is explicitly in the retrieved text
+- Quote the exact table row when reporting schedule information
+- If you cannot find the specific date after thoroughly searching, clearly state that
 
-Please provide a comprehensive answer that combines the Canvas course information with your knowledge:"""
+Please search the Canvas materials for the exact information requested:"""
         else:
             kb_context = "No relevant context found in knowledge base"
             prompt = f"""You are an educational AI tutor. Answer this question using your general knowledge.

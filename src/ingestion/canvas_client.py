@@ -1,5 +1,5 @@
 """
-Canvas LMS API Client
+Canvas LMS API Client (API Communication Layer)
 
 Handles all interactions with the Canvas LMS API 
 
@@ -164,18 +164,22 @@ class CanvasClient:
 
         return all_items
 
-    def get_course(self, course_id: str) -> Dict:
+    def get_course(self, course_id: str, include_syllabus: bool = True) -> Dict:
         """
         Get course information.
 
         Args:
             course_id: Canvas course ID
+            include_syllabus: Include syllabus body in response
 
         Returns:
             Course information dict
         """
         endpoint = f"/courses/{course_id}"
-        response = self._make_request(endpoint)
+        params = {}
+        if include_syllabus:
+            params['include[]'] = 'syllabus_body'
+        response = self._make_request(endpoint, params)
         return response.json()
 
     def get_modules(self, course_id: str) -> List[Dict]:

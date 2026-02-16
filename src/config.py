@@ -36,8 +36,8 @@ OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gemma:2b")
 
 # Retrieval settings
-TOP_K_RESULTS = int(os.getenv("TOP_K_RESULTS", "3"))
-SIMILARITY_THRESHOLD = float(os.getenv("SIMILARITY_THRESHOLD", "0.5"))
+TOP_K_RESULTS = int(os.getenv("TOP_K_RESULTS", "5"))  # Increased from 3 to retrieve more context
+SIMILARITY_THRESHOLD = float(os.getenv("SIMILARITY_THRESHOLD", "0.2"))  # Lowered to 0.2 to capture more relevant content
 
 # Ingestion settings
 INGEST_BATCH_SIZE = int(os.getenv("INGEST_BATCH_SIZE", "100"))
@@ -49,9 +49,10 @@ PDF_EXTRACTION_TIMEOUT = int(os.getenv("PDF_EXTRACTION_TIMEOUT", "30"))
 MAX_FILE_SIZE_MB = int(os.getenv("MAX_FILE_SIZE_MB", "50"))
 
 # Content type filtering (comma-separated)
+# Note: 'module' removed - modules are just navigation metadata, actual content is in pages
 INGEST_CONTENT_TYPES = os.getenv(
     "INGEST_CONTENT_TYPES",
-    "module,page,assignment,announcement,discussion,file"
+    "syllabus,page,assignment,announcement,discussion,file"
 ).split(",")
 
 # Logging

@@ -26,11 +26,12 @@ from src.ingestion.document_processor import DocumentProcessor
 from src.ingestion.metadata_tracker import MetadataTracker
 from src.ingestion.content_handlers import (
     PageHandler,
-    ModuleHandler,
+    # ModuleHandler,  # Disabled: modules are just navigation metadata, actual content is in pages
     AssignmentHandler,
     AnnouncementHandler,
     DiscussionHandler,
-    FileHandler
+    FileHandler,
+    SyllabusHandler
 )
 from src.vectorstore.chroma_manager import ChromaManager
 from src.config import (
@@ -90,8 +91,9 @@ class CanvasIngestionPipeline:
 
         # Initialize handlers
         self.handlers = {
+            'syllabus': SyllabusHandler(self.client, self.processor),
             'page': PageHandler(self.client, self.processor),
-            'module': ModuleHandler(self.client, self.processor),
+            # 'module': ModuleHandler(self.client, self.processor),  # Disabled: modules are navigation metadata only
             'assignment': AssignmentHandler(self.client, self.processor),
             'announcement': AnnouncementHandler(self.client, self.processor),
             'discussion': DiscussionHandler(self.client, self.processor),

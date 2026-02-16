@@ -61,6 +61,20 @@ class DocumentProcessor:
         for script in soup(['script', 'style', 'meta', 'link']):
             script.decompose()
 
+        # Special handling for tables to preserve structure
+        for table in soup.find_all('table'):
+            # Convert table to readable text format
+            rows = []
+            for row in table.find_all('tr'):
+                cells = [cell.get_text(strip=True) for cell in row.find_all(['td', 'th'])]
+                if cells:  # Only add non-empty rows
+                    rows.append(' | '.join(cells))
+
+            if rows:
+                # Replace table with formatted text
+                table_text = '\n'.join(rows)
+                table.replace_with(soup.new_string(f"\n{table_text}\n"))
+
         # Get text and clean whitespace
         text = soup.get_text(separator='\n')
 

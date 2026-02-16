@@ -30,7 +30,7 @@ def demo_rag(question: str, show_stats: bool = True):
     print("="*70)
 
     # Retrieve contexts from ChromaDB (semantic search!)
-    retrieved_contexts = retriever.retrieve(question, top_k=3)
+    retrieved_contexts = retriever.retrieve(question, top_k=5)
 
     if retrieved_contexts:
         print(f"\nRetrieved {len(retrieved_contexts)} relevant contexts:\n")

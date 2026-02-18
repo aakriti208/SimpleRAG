@@ -59,3 +59,13 @@ dmypy.json
 *.log
 *.tmp
 *.bak
+
+# Claude Code local settings
+.claude/
+
+# Stray virtual environment
+path/
+
+# Local/dev-only files
+ARCHITECTURE.md
+test_with_sample_data.py
